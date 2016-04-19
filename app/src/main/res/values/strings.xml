@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Pawtch</string>
     <string name="my_digital_name">My Digital</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="title_activity_statistics_screen">StatisticsScreen</string>
+    <string name="title_activity_food_screen">FoodScreen</string>
+    <string name="title_activity_settings_screen">SettingsScreen</string>
+    <string name="title_activity_feeding_animation_screen">FeedingAnimationScreen</string>
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
 </resources>
