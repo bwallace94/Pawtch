@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-8.4.0_1fb8704f8e78515b1ae2b1c2f6cdff1f17d83649.jar" />
+    </item>
+    <item
+        jar="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1_7ac5cbda2a51105a40af415151346e00febb538d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.0.1_a978500d02f764634e8405368207e5f3aa4b80a9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-8.4.0_ea2c15c0e1090863df72c19db2febb356228da3f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.0.1_436b348f0dffca5fc498d9b4eb2dc525669b20ab.jar" />
+    </item>
+    <item
+        jar="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-wearable-8.4.0_74ce4cd72addb7c864a693b600f03b05ba374e50.jar" />
+    </item>
+    <item
+        jar="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\exploded-aar\com.google.android.support\wearable\1.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="40a6fbd08fdbb71c74751916201e5fd8694e16ca">
+        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\com.google.android.support-wearable-1.4.0_35a3e8dc4b238ea8b49f45fe27af00c1b1e9b185.jar" />
+    </item>
+    <item
+        jar="C:\Android\sdk1\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1_6d880d56bd3dda6779b1038cf2c377f034faf317.jar" />
+    </item>
+
+</items>
