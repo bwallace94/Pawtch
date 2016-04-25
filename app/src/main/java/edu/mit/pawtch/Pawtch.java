@@ -51,7 +51,7 @@ public class Pawtch extends WearableActivity {
     private void updateDisplay() {
         if (isAmbient()) {
             mContainerView.setBackgroundColor(getResources().getColor(android.R.color.black));
-            mTextView.setTextColor(getResources().getColor(android.R.color.white));
+            mTextView.setTextColor(getResources().getColor(android.R.color.black));
             mClockView.setVisibility(View.VISIBLE);
 
             mClockView.setText(AMBIENT_DATE_FORMAT.format(new Date()));

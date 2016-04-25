@@ -5,7 +5,6 @@
     android:id="@+id/watch_view_stub"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:rectLayout="@layout/rect_activity_feeding_animation_screen"
-    app:roundLayout="@layout/round_activity_feeding_animation_screen"
     tools:context="edu.mit.pawtch.FeedingAnimationScreen"
-    tools:deviceIds="wear"></android.support.wearable.view.WatchViewStub>
+    tools:deviceIds="wear">
+</android.support.wearable.view.WatchViewStub>
