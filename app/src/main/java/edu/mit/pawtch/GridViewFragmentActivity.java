@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.wearable.view.CardFragment;
 import android.support.wearable.view.DotsPageIndicator;
@@ -25,10 +26,10 @@ import android.widget.Toast;
 
 public class GridViewFragmentActivity extends Activity {
 
-    Context context = this;
-    private SharedPreferences sharedPref = context.getSharedPreferences(
-            "edu.mit.pawtch.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
-
+//    Context context = this;
+//    private SharedPreferences sharedPref = context.getSharedPreferences(
+//            "edu.mit.pawtch.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
+//    private SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,25 +43,13 @@ public class GridViewFragmentActivity extends Activity {
         dotsPageIndicator.setPager(pager);
     }
 
-    public void updateFoodScoreAndTime(){
-        int feedingScore = sharedPref.getInt("feedingScore", 0);
-        String lastFeed = sharedPref.getString("lastFeedTime", "12:00");
-        SharedPreferences.Editor editor = sharedPref.edit();
-        if (feedingScore < 5){
-            editor.putInt("feedingScore", feedingScore+1);
-            editor.apply();
-        }
-        long currentTime= System.currentTimeMillis();
-        editor.putString("lastFeedTime", Long.toString(currentTime));
-        editor.apply();
-    }
-
-
     public class myAdapter extends GridPagerAdapter {
+        private SharedPreferences sharedPref;
         final Context mContext;
 
         public myAdapter(final Context context) {
             this.mContext = context;
+            this.sharedPref = PreferenceManager.getDefaultSharedPreferences(this.mContext);
         }
 
         @Override
@@ -133,12 +122,13 @@ public class GridViewFragmentActivity extends Activity {
                 iv.setImageResource(R.drawable.dumbbell);
             } else if (row == 3 && col == 1) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup,false);
-                final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle1);
+                final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
                 final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
-                final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
+                final ImageView iv = (ImageView) view.findViewById(R.id.icon2);
                 tv1.setText("Feeding");
                 int feedingScore = sharedPref.getInt("feedingScore", 0);
-                tv2.setText(feedingScore);
+                Log.e("BRIA: Feeding Score: ", Integer.toString(feedingScore));
+                tv2.setText(Integer.toString(feedingScore));
                 iv.setImageResource(R.drawable.meter);
             } else if (row == 0 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
@@ -204,6 +194,19 @@ public class GridViewFragmentActivity extends Activity {
         @Override
         public boolean isViewFromObject(View view, Object o) {
             return view.equals(o);
+        }
+
+        public void updateFoodScoreAndTime(){
+            int feedingScore = sharedPref.getInt("feedingScore", 0);
+            String lastFeed = sharedPref.getString("lastFeedTime", "12:00");
+            SharedPreferences.Editor editor = sharedPref.edit();
+            if (feedingScore < 5){
+                editor.putInt("feedingScore", feedingScore+1);
+                editor.apply();
+            }
+            long currentTime= System.currentTimeMillis();
+            editor.putString("lastFeedTime", Long.toString(currentTime));
+            editor.apply();
         }
     }
 }
