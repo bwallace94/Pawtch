@@ -66,7 +66,28 @@ public class GridViewFragmentActivity extends Activity {
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
                 tv.setText("Mochi");
                 iv.setImageResource(R.drawable.panda);
-                Log.e("LOOK", (String) tv.getText());
+            } else if (row == 1 && col == 0) {
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
+                final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
+                final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
+                final ImageView iv = (ImageView) view.findViewById(R.id.icon2);
+                tv1.setText("Gender");
+                tv2.setText("Male  ");
+                iv.setImageResource(R.drawable.male);
+            } else if (row == 2 && col == 0) {
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
+                final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
+                final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
+                final ImageView iv = (ImageView) view.findViewById(R.id.icon2);
+                tv1.setText("Age");
+                tv2.setText("1 month old ");
+                iv.setImageResource(R.drawable.birthdaycake);
+            } else if (row == 3 && col == 0) {
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
+                final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
+                final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
+                tv.setText("Bio");
+                iv.setImageResource(R.drawable.panda);
             } else if (row == 0 && col == 1) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
@@ -95,8 +116,35 @@ public class GridViewFragmentActivity extends Activity {
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
                 tv.setText("Feeding");
                 iv.setImageResource(R.drawable.meter);
-            } else {
-
+            } else if (row == 0 && col == 2) {
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
+                final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
+                final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
+                tv.setText("Scroll & click to feed!");
+                iv.setImageResource(R.drawable.arrow);
+            } else if (row == 1 && col == 2) {
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
+                final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
+                final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
+                tv.setText("Bamboo");
+                iv.setClickable(true);
+                iv.setImageResource(R.drawable.bamboo);
+            } else if (row == 2 && col == 2) {
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
+                final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
+                final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
+                tv.setText("Water");
+                iv.setClickable(true);
+                iv.setImageResource(R.drawable.water);
+            } else if (row == 3 && col == 2) {
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
+                final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
+                final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
+                tv.setText("Ice Cream");
+                iv.setClickable(true);
+                iv.setImageResource(R.drawable.icecream);
+            }
+            else {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
