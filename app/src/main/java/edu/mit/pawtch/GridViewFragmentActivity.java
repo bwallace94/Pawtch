@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.Image;
@@ -20,8 +21,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GridViewFragmentActivity extends Activity {
+
+    Context context = this;
+    private SharedPreferences sharedPref = context.getSharedPreferences(
+            "edu.mit.pawtch.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,20 @@ public class GridViewFragmentActivity extends Activity {
         DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) findViewById(R.id.page_indicator);
         dotsPageIndicator.setPager(pager);
     }
+
+    public void updateFoodScoreAndTime(){
+        int feedingScore = sharedPref.getInt("feedingScore", 0);
+        String lastFeed = sharedPref.getString("lastFeedTime", "12:00");
+        SharedPreferences.Editor editor = sharedPref.edit();
+        if (feedingScore < 5){
+            editor.putInt("feedingScore", feedingScore+1);
+            editor.apply();
+        }
+        long currentTime= System.currentTimeMillis();
+        editor.putString("lastFeedTime", Long.toString(currentTime));
+        editor.apply();
+    }
+
 
     public class myAdapter extends GridPagerAdapter {
         final Context mContext;
@@ -111,10 +132,13 @@ public class GridViewFragmentActivity extends Activity {
                 tv2.setText("10 min  ");
                 iv.setImageResource(R.drawable.dumbbell);
             } else if (row == 3 && col == 1) {
-                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
-                final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup,false);
+                final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle1);
+                final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
-                tv.setText("Feeding");
+                tv1.setText("Feeding");
+                int feedingScore = sharedPref.getInt("feedingScore", 0);
+                tv2.setText(feedingScore);
                 iv.setImageResource(R.drawable.meter);
             } else if (row == 0 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
@@ -129,6 +153,12 @@ public class GridViewFragmentActivity extends Activity {
                 tv.setText("Bamboo");
                 iv.setClickable(true);
                 iv.setImageResource(R.drawable.bamboo);
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateFoodScoreAndTime();
+                    }
+                });
             } else if (row == 2 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
@@ -136,6 +166,12 @@ public class GridViewFragmentActivity extends Activity {
                 tv.setText("Water");
                 iv.setClickable(true);
                 iv.setImageResource(R.drawable.water);
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateFoodScoreAndTime();
+                    }
+                });
             } else if (row == 3 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
@@ -143,6 +179,12 @@ public class GridViewFragmentActivity extends Activity {
                 tv.setText("Ice Cream");
                 iv.setClickable(true);
                 iv.setImageResource(R.drawable.icecream);
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateFoodScoreAndTime();
+                    }
+                });
             }
             else {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
