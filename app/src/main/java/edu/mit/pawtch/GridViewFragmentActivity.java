@@ -1,6 +1,7 @@
 package edu.mit.pawtch;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -198,15 +199,19 @@ public class GridViewFragmentActivity extends Activity {
 
         public void updateFoodScoreAndTime(){
             int feedingScore = sharedPref.getInt("feedingScore", 0);
+            int newFeedingScore = feedingScore + 1;
             String lastFeed = sharedPref.getString("lastFeedTime", "12:00");
             SharedPreferences.Editor editor = sharedPref.edit();
             if (feedingScore < 5){
-                editor.putInt("feedingScore", feedingScore+1);
+                editor.putInt("feedingScore", newFeedingScore);
                 editor.apply();
             }
             long currentTime= System.currentTimeMillis();
             editor.putString("lastFeedTime", Long.toString(currentTime));
             editor.apply();
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setMessage("You have fed your pet! Current feeding level: "+ newFeedingScore);
+            AlertDialog dialog = builder.create();
         }
     }
 }
