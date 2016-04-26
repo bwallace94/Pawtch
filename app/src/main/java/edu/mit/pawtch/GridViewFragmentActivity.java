@@ -55,17 +55,20 @@ public class GridViewFragmentActivity extends Activity {
 
         @Override
         public int getRowCount() {
-            return 4;
-        }
-
-        @Override
-        public int getColumnCount(int row) {
             return 3;
         }
 
         @Override
+        public int getColumnCount(int row) {
+            if (row == 0) {
+                return 1;
+            }
+            return 4;
+        }
+
+        @Override
         public int getCurrentColumnForRow(int row, int currentColumn) {
-            return currentColumn;
+            return 0;
         }
 
         @Override
@@ -77,7 +80,7 @@ public class GridViewFragmentActivity extends Activity {
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
                 tv.setText("Mochi");
                 iv.setImageResource(R.drawable.panda);
-            } else if (row == 1 && col == 0) {
+            } else if (row == 0 && col == 1) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
                 final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
@@ -85,7 +88,7 @@ public class GridViewFragmentActivity extends Activity {
                 tv1.setText("Gender");
                 tv2.setText("Male  ");
                 iv.setImageResource(R.drawable.male);
-            } else if (row == 2 && col == 0) {
+            } else if (row == 0 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
                 final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
@@ -93,13 +96,13 @@ public class GridViewFragmentActivity extends Activity {
                 tv1.setText("Age");
                 tv2.setText("1 month old ");
                 iv.setImageResource(R.drawable.birthdaycake);
-            } else if (row == 3 && col == 0) {
+            } else if (row == 0 && col == 3) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
                 tv.setText("Bio");
                 iv.setImageResource(R.drawable.panda);
-            } else if (row == 0 && col == 1) {
+            } else if (row == 1 && col == 0) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
@@ -113,7 +116,7 @@ public class GridViewFragmentActivity extends Activity {
                 tv1.setText("Walking");
                 tv2.setText("1000  ");
                 iv.setImageResource(R.drawable.paw);
-            } else if (row == 2 && col == 1) {
+            } else if (row == 1 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
                 final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
@@ -121,7 +124,7 @@ public class GridViewFragmentActivity extends Activity {
                 tv1.setText("Playing");
                 tv2.setText("10 min  ");
                 iv.setImageResource(R.drawable.dumbbell);
-            } else if (row == 3 && col == 1) {
+            } else if (row == 1 && col == 3) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup,false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
                 final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
@@ -148,13 +151,13 @@ public class GridViewFragmentActivity extends Activity {
                 else{
                     iv.setImageResource(R.drawable.meter1);
                 }
-            } else if (row == 0 && col == 2) {
+            } else if (row == 2 && col == 0) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
                 tv.setText("Scroll & click to feed!");
                 iv.setImageResource(R.drawable.arrow);
-            } else if (row == 1 && col == 2) {
+            } else if (row == 2 && col == 1) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
@@ -180,7 +183,7 @@ public class GridViewFragmentActivity extends Activity {
                         updateFoodScoreAndTime();
                     }
                 });
-            } else if (row == 3 && col == 2) {
+            } else if (row == 2 && col == 3) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
@@ -226,9 +229,8 @@ public class GridViewFragmentActivity extends Activity {
             long currentTime= System.currentTimeMillis();
             editor.putString("lastFeedTime", Long.toString(currentTime));
             editor.apply();
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setMessage("You have fed your pet! Current feeding level: "+ newFeedingScore);
-            AlertDialog dialog = builder.create();
+            Toast.makeText(mContext,"You have fed your pet! Current feeding level: " + newFeedingScore,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
