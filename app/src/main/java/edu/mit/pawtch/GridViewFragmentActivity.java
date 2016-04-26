@@ -130,7 +130,24 @@ public class GridViewFragmentActivity extends Activity {
                 int feedingScore = sharedPref.getInt("feedingScore", 0);
                 Log.e("BRIA: Feeding Score: ", Integer.toString(feedingScore));
                 tv2.setText(Integer.toString(feedingScore));
-                iv.setImageResource(R.drawable.meter);
+                if (feedingScore == 0){
+                    iv.setImageResource(R.drawable.meter1);
+                }
+                else if (feedingScore == 1){
+                    iv.setImageResource(R.drawable.meter2);
+                }
+                else if (feedingScore == 2){
+                    iv.setImageResource(R.drawable.meter3);
+                }
+                else if (feedingScore == 3){
+                    iv.setImageResource(R.drawable.meter4);
+                }
+                else if (feedingScore == 4){
+                    iv.setImageResource(R.drawable.meter5);
+                }
+                else{
+                    iv.setImageResource(R.drawable.meter1);
+                }
             } else if (row == 0 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
@@ -202,7 +219,7 @@ public class GridViewFragmentActivity extends Activity {
             int newFeedingScore = feedingScore + 1;
             String lastFeed = sharedPref.getString("lastFeedTime", "12:00");
             SharedPreferences.Editor editor = sharedPref.edit();
-            if (feedingScore < 5){
+            if (feedingScore < 4){
                 editor.putInt("feedingScore", newFeedingScore);
                 editor.apply();
             }
