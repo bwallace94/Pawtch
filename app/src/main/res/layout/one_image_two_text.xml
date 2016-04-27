@@ -3,6 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:id="@+id/one_image_one_text">
 
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textClock"
+        android:textColor="@color/black"
+        android:layout_gravity="right|top" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
