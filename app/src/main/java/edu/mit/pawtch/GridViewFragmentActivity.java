@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.support.wearable.view.DotsPageIndicator;
 import android.support.wearable.view.GridPagerAdapter;
 import android.support.wearable.view.GridViewPager;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +37,10 @@ public class GridViewFragmentActivity extends Activity {
         setContentView(R.layout.activity_pawtch);
         final Resources res = getResources();
         final GridViewPager pager = (GridViewPager) findViewById(R.id.pager);
-
-        pager.setAdapter(new myAdapter(this));
+        myAdapter newAdapter = new myAdapter(this);
+        newAdapter.notifyDataSetChanged();
+        pager.setAdapter(newAdapter);
+        newAdapter.notifyDataSetChanged();
         DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) findViewById(R.id.page_indicator);
         dotsPageIndicator.setPager(pager);
 
@@ -219,8 +224,14 @@ public class GridViewFragmentActivity extends Activity {
         }
 
         @Override
+        public Point getItemPosition(Object o) {
+            return POSITION_NONE;
+        }
+
+        @Override
         public boolean isViewFromObject(View view, Object o) {
-            return view.equals(o);
+            return view == o;
+//            return view.equals(o);
         }
 
         public void updateFoodScoreAndTime(){
