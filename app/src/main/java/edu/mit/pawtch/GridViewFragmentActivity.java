@@ -19,12 +19,11 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class GridViewFragmentActivity extends Activity {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
-//    Context context = this;
-//    private SharedPreferences sharedPref = context.getSharedPreferences(
-//            "edu.mit.pawtch.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
-//    private SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+public class GridViewFragmentActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +40,10 @@ public class GridViewFragmentActivity extends Activity {
     public class myAdapter extends GridPagerAdapter {
         private SharedPreferences sharedPref;
         final Context mContext;
+        public double numSteps = 3493.0;
+        public double goalSteps = 10000.0;
+        public double minExer = 21.0;
+        public double goalExer = 60.0;
 
         public myAdapter(final Context context) {
             this.mContext = context;
@@ -76,38 +79,16 @@ public class GridViewFragmentActivity extends Activity {
                 tv2.setText(" Pawtch");
                 tv.setText("Mochi");
                 iv.setImageResource(R.drawable.panda);
-            } else if (row == 0 && col == 1) {
-                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
-                final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
-                final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
-                final ImageView iv = (ImageView) view.findViewById(R.id.icon2);
-                final TextView tv3 = (TextView) view.findViewById(R.id.upperTitle2);
-                tv1.setText("Gender");
-                tv2.setText("Male  ");
-                tv3.setText(" Pawtch");
-                iv.setImageResource(R.drawable.male);
-            } else if (row == 0 && col == 2) {
-                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
-                final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
-                final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
-                final ImageView iv = (ImageView) view.findViewById(R.id.icon2);
-                tv1.setText("Age");
-                tv2.setText("1 month old ");
-                iv.setImageResource(R.drawable.birthdaycake);
-            } else if (row == 0 && col == 3) {
-                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
-                final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
-                final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
-                tv.setText("Bio");
-                iv.setImageResource(R.drawable.panda);
             } else if (row == 1 && col == 0) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
                 final TextView tv2 = (TextView) view.findViewById(R.id.upperTitle1);
                 tv2.setText(" Stats");
-                tv.setText("Happiness");
-                iv.setImageResource(R.drawable.heart);
+                setHappinessAndPicture(iv);
+                int newHappinessScore = sharedPref.getInt("happinessScore",0);
+                Log.e("BRIA: ", "STORED HAPPINESS || " + newHappinessScore);
+                tv.setText("Happiness:  " + Integer.toString(newHappinessScore) + "%");
             } else if (row == 1 && col == 1) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
@@ -247,6 +228,41 @@ public class GridViewFragmentActivity extends Activity {
             editor.apply();
             Toast.makeText(mContext,"You have fed your pet! Current feeding level: " + newFeedingScore,
                     Toast.LENGTH_SHORT).show();
+        }
+
+        public void setHappinessAndPicture(ImageView iv) {
+            double feedingPercent = sharedPref.getInt("feedingScore", 0) / 5.0;
+            double walkingPercent = numSteps/goalSteps;
+            double exercisePercent = minExer/goalExer;
+            double happiness = (.33*walkingPercent + .33*exercisePercent + .34*feedingPercent)*100.0;
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt("happinessScore", (int) happiness);
+            editor.apply();
+            editor.apply();
+            Log.e("BRIA", "HAPPINESS || " + happiness);
+            Log.e("BRIA","HAPPINESS || " + (int) happiness);
+            Log.e("BRIA", "NEWLY SET HAPPINESS || " + sharedPref.getInt("happinessScore",0));
+            if (0.0 <= happiness  && happiness < 10.0) {
+                iv.setImageResource(R.drawable.heart0);
+            } else if (10 <= happiness && happiness < 20.0) {
+                iv.setImageResource(R.drawable.heart1);
+            } else if (20 <= happiness && happiness < 30.0) {
+                iv.setImageResource(R.drawable.heart2);
+            } else if (30 <= happiness && happiness < 40.0) {
+                iv.setImageResource(R.drawable.heart3);
+            } else if (40 <= happiness && happiness < 50.0) {
+                iv.setImageResource(R.drawable.heart4);
+            } else if (50 <= happiness && happiness < 60.0) {
+                iv.setImageResource(R.drawable.heart5);
+            } else if (60 <= happiness && happiness < 70.0) {
+                iv.setImageResource(R.drawable.heart6);
+            } else if (70 <= happiness && happiness < 80.0) {
+                iv.setImageResource(R.drawable.heart7);
+            } else if (80 <= happiness && happiness < 90.0) {
+                iv.setImageResource(R.drawable.heart8);
+            } else {
+                iv.setImageResource(R.drawable.heart9);
+            }
         }
     }
 }
