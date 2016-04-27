@@ -1,7 +1,10 @@
 package edu.mit.pawtch;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,10 +22,6 @@ import android.widget.Toast;
 
 public class GridViewFragmentActivity extends Activity {
 
-//    Context context = this;
-//    private SharedPreferences sharedPref = context.getSharedPreferences(
-//            "edu.mit.pawtch.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
-//    private SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +33,12 @@ public class GridViewFragmentActivity extends Activity {
         pager.setAdapter(new myAdapter(this));
         DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) findViewById(R.id.page_indicator);
         dotsPageIndicator.setPager(pager);
+
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        int interval = 60000;
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(), interval, pendingIntent);
     }
 
     public class myAdapter extends GridPagerAdapter {
