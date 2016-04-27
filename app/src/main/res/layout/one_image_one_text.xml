@@ -3,12 +3,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:id="@+id/one_image_one_text">
 
-    <TextClock
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textClock2"
-        android:textColor="@color/black"
-        android:layout_gravity="right|top" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:textColor="@color/black"
+            android:id="@+id/upperTitle1" />
+
+        <TextClock
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textClock1"
+            android:textColor="@color/black"
+            android:gravity="top|right"
+            android:layout_gravity="top|right" />
+    </LinearLayout>
 
     <ImageView
         android:layout_width="100dp"
