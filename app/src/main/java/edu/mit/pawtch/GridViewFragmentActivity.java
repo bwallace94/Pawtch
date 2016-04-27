@@ -10,7 +10,6 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.view.ViewPager;
 import android.support.wearable.view.DotsPageIndicator;
 import android.support.wearable.view.GridPagerAdapter;
 import android.support.wearable.view.GridViewPager;
@@ -18,16 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GridViewFragmentActivity extends Activity {
 
@@ -97,12 +89,34 @@ public class GridViewFragmentActivity extends Activity {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
+                iv.setImageResource(R.drawable.heart);
                 final TextView tv2 = (TextView) view.findViewById(R.id.upperTitle1);
                 tv2.setText(" Stats");
                 setHappinessAndPicture(iv);
-                int newHappinessScore = sharedPref.getInt("happinessScore",0);
-                Log.e("BRIA: ", "STORED HAPPINESS || " + newHappinessScore);
-                tv.setText("Happiness:  " + Integer.toString(newHappinessScore) + "%");
+                int happiness = sharedPref.getInt("happinessScore",0);
+                Log.e("BRIA: ", "STORED HAPPINESS || " + happiness);
+                tv.setText("Happiness:  " + Integer.toString(happiness) + "%");
+                if (0.0 <= happiness  && happiness < 10.0) {
+                    iv.setImageResource(R.drawable.heart0);
+                } else if (10 <= happiness && happiness < 20.0) {
+                    iv.setImageResource(R.drawable.heart1);
+                } else if (20 <= happiness && happiness < 30.0) {
+                    iv.setImageResource(R.drawable.heart2);
+                } else if (30 <= happiness && happiness < 40.0) {
+                    iv.setImageResource(R.drawable.heart3);
+                } else if (40 <= happiness && happiness < 50.0) {
+                    iv.setImageResource(R.drawable.heart4);
+                } else if (50 <= happiness && happiness < 60.0) {
+                    iv.setImageResource(R.drawable.heart5);
+                } else if (60 <= happiness && happiness < 70.0) {
+                    iv.setImageResource(R.drawable.heart6);
+                } else if (70 <= happiness && happiness < 80.0) {
+                    iv.setImageResource(R.drawable.heart7);
+                } else if (80 <= happiness && happiness < 90.0) {
+                    iv.setImageResource(R.drawable.heart8);
+                } else {
+                    iv.setImageResource(R.drawable.heart9);
+                }
             } else if (row == 1 && col == 1) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
@@ -231,7 +245,6 @@ public class GridViewFragmentActivity extends Activity {
         @Override
         public boolean isViewFromObject(View view, Object o) {
             return view == o;
-//            return view.equals(o);
         }
 
         public void updateFoodScoreAndTime(){
@@ -258,31 +271,7 @@ public class GridViewFragmentActivity extends Activity {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("happinessScore", (int) happiness);
             editor.apply();
-            editor.apply();
             Log.e("BRIA", "HAPPINESS || " + happiness);
-            Log.e("BRIA","HAPPINESS || " + (int) happiness);
-            Log.e("BRIA", "NEWLY SET HAPPINESS || " + sharedPref.getInt("happinessScore",0));
-            if (0.0 <= happiness  && happiness < 10.0) {
-                iv.setImageResource(R.drawable.heart0);
-            } else if (10 <= happiness && happiness < 20.0) {
-                iv.setImageResource(R.drawable.heart1);
-            } else if (20 <= happiness && happiness < 30.0) {
-                iv.setImageResource(R.drawable.heart2);
-            } else if (30 <= happiness && happiness < 40.0) {
-                iv.setImageResource(R.drawable.heart3);
-            } else if (40 <= happiness && happiness < 50.0) {
-                iv.setImageResource(R.drawable.heart4);
-            } else if (50 <= happiness && happiness < 60.0) {
-                iv.setImageResource(R.drawable.heart5);
-            } else if (60 <= happiness && happiness < 70.0) {
-                iv.setImageResource(R.drawable.heart6);
-            } else if (70 <= happiness && happiness < 80.0) {
-                iv.setImageResource(R.drawable.heart7);
-            } else if (80 <= happiness && happiness < 90.0) {
-                iv.setImageResource(R.drawable.heart8);
-            } else {
-                iv.setImageResource(R.drawable.heart9);
-            }
         }
     }
 }
