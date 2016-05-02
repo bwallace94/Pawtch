@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
-
-    <item
-        jar="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
-        <dex dex="C:\Users\Priscila Cortez\Documents\MIT\16Spring\6.S198\Pawtch\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appindexing-8.4.0_840c221af9382d2236520a10eb5546cb7f01c736.jar" />
-    </item>
-
-</items>
+<items version="2" />
