@@ -312,6 +312,16 @@ public class GridViewFragmentActivity extends Activity {
                 int newHappinessScore = sharedPref.getInt("happinessScore",0);
                 Log.e("BRIA: ", "STORED HAPPINESS || " + newHappinessScore);
                 tv.setText("Happiness:  " + Integer.toString(newHappinessScore) + "%");
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.e("BRIA: ", "REACHES THE UPDATE HEART");
+                        setHappinessAndPicture(iv);
+                        int newHappinessScore = sharedPref.getInt("happinessScore", 0);
+                        Log.e("BRIA: ", "STORED HAPPINESS || " + newHappinessScore);
+                        tv.setText("Happiness:  " + Integer.toString(newHappinessScore) + "%");
+                    }
+                });
             } else if (row == 1 && col == 1) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
@@ -325,6 +335,14 @@ public class GridViewFragmentActivity extends Activity {
                 tv2.setText((int)numSteps + "  ");
                 tv3.setText(" Stats");
                 iv.setImageResource(R.drawable.paw);
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new InsertAndVerifyDataTask().execute();
+                        Log.e("BRIA: ", "REACHES THE UPDATE WALKING");
+                        tv2.setText((int) numSteps + "  ");
+                    }
+                });
             } else if (row == 1 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
@@ -384,7 +402,9 @@ public class GridViewFragmentActivity extends Activity {
                 iv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         updateFoodScoreAndTime();
+                        
                     }
                 });
             } else if (row == 2 && col == 2) {
@@ -571,12 +591,12 @@ public class GridViewFragmentActivity extends Activity {
                         tv1.setText("Walking");
                         tv2.setText((int)numSteps + "  ");
                         tv3.setText(" Stats");
-                        Log.e("BRIA: ", "REACHES THE UPDATE WALKING");
                         iv.setImageResource(R.drawable.paw);
                         iv.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 new InsertAndVerifyDataTask().execute();
+                                Log.e("BRIA: ", "REACHES THE UPDATE WALKING");
                                 tv2.setText((int)numSteps + "  ");
                             }
                         });
