@@ -113,6 +113,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
          */
         boolean mLowBitAmbient;
 
+        private Bitmap mBackgroundBitmap;
+
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
@@ -134,7 +136,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), backgroundResId);
 
             mTextPaint = new Paint();
-            mTextPaint.setColor(Color.WHITE);
+            mTextPaint = createTextPaint(Color.WHITE);
+            //mTextPaint = createTextPaint(resources.getColor(R.color.digital_text));
             mTextPaint = createTextPaint(resources.getColor(R.color.digital_text));
 
             mTime = new Time();
