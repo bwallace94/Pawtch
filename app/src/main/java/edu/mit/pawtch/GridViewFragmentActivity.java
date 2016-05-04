@@ -90,6 +90,10 @@ public class GridViewFragmentActivity extends Activity {
         buildFitnessClient();
         mClient.connect();
 
+        // Set up Asyc Activity of Feeding going down
+        DecreaseFoodScore decreaseFoodScore = new DecreaseFoodScore(this);
+        decreaseFoodScore.execute();
+
         final Resources res = getResources();
         final GridViewPager pager = (GridViewPager) findViewById(R.id.pager);
         final myAdapter newAdapter = new myAdapter(this);
@@ -468,7 +472,6 @@ public class GridViewFragmentActivity extends Activity {
         public void updateFoodScoreAndTime() {
             int feedingScore = sharedPref.getInt("feedingScore", 0);
             int newFeedingScore = feedingScore + 1;
-            String lastFeed = sharedPref.getString("lastFeedTime", "12:00");
             SharedPreferences.Editor editor = sharedPref.edit();
 
             if (feedingScore < 4){
@@ -476,7 +479,7 @@ public class GridViewFragmentActivity extends Activity {
                 editor.apply();
             } else {newFeedingScore = 4;}
             long currentTime = System.currentTimeMillis();
-            editor.putString("lastFeedTime", Long.toString(currentTime));
+            editor.putLong("lastFeedUpdate", currentTime);
             editor.apply();
             Toast.makeText(mContext,"You have fed your pet! Current feeding level: " + newFeedingScore + "/4",
                     Toast.LENGTH_SHORT).show();
