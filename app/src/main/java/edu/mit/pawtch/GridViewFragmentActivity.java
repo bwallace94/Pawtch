@@ -307,7 +307,7 @@ public class GridViewFragmentActivity extends Activity {
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
                 final ImageView iv = (ImageView) view.findViewById(R.id.icon1);
                 final TextView tv2 = (TextView) view.findViewById(R.id.upperTitle1);
-                int feedingScore = sharedPref.getInt("feedingScore", 0);
+                final int feedingScore = sharedPref.getInt("feedingScore", 0);
                 tv2.setText(" Stats");
                 tv.setText("Hunger: " + feedingScore + "/4");
                 Log.e("BRIA: Feeding Score: ", Integer.toString(feedingScore));
@@ -329,6 +329,32 @@ public class GridViewFragmentActivity extends Activity {
                 else{
                     iv.setImageResource(R.drawable.meter1);
                 }
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int feedingScore = sharedPref.getInt("feedingScore", 0);
+                        Log.e("BRIA: ", "REACHES THE UPDATE HUNGER AND HUNGER LEVEL IS " + feedingScore);
+                        tv.setText("Hunger: " + feedingScore + "/4");
+                        if (feedingScore == 0){
+                            iv.setImageResource(R.drawable.meter1);
+                        }
+                        else if (feedingScore == 1){
+                            iv.setImageResource(R.drawable.meter2);
+                        }
+                        else if (feedingScore == 2){
+                            iv.setImageResource(R.drawable.meter3);
+                        }
+                        else if (feedingScore == 3){
+                            iv.setImageResource(R.drawable.meter4);
+                        }
+                        else if (feedingScore == 4){
+                            iv.setImageResource(R.drawable.meter5);
+                        }
+                        else{
+                            iv.setImageResource(R.drawable.meter1);
+                        }
+                    }
+                });
             } else if (row == 2 && col == 0) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup,false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
