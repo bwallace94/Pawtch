@@ -282,6 +282,8 @@ public class GridViewFragmentActivity extends Activity {
         public int getColumnCount(int row) {
             if (row == 0) {
                 return 1;
+            } else if (row == 1) {
+                return 3;
             }
             return 4;
         }
@@ -343,7 +345,7 @@ public class GridViewFragmentActivity extends Activity {
                         tv2.setText((int) numSteps + "  ");
                     }
                 });
-            } else if (row == 1 && col == 2) {
+            } else if (row == 1 && col == 3) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
                 final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
@@ -351,9 +353,9 @@ public class GridViewFragmentActivity extends Activity {
                 final TextView tv3 = (TextView) view.findViewById(R.id.upperTitle2);
                 tv1.setText("Playing");
                 tv2.setText("10 min  ");
-                tv3.setText(" Stats");
+                tv3.setText(" Stats"); 
                 iv.setImageResource(R.drawable.dumbbell);
-            } else if (row == 1 && col == 3) {
+            } else if (row == 1 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup,false);
                 final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
                 final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
@@ -402,9 +404,7 @@ public class GridViewFragmentActivity extends Activity {
                 iv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         updateFoodScoreAndTime();
-                        
                     }
                 });
             } else if (row == 2 && col == 2) {
@@ -480,7 +480,7 @@ public class GridViewFragmentActivity extends Activity {
             long currentTime = System.currentTimeMillis();
             editor.putString("lastFeedTime", Long.toString(currentTime));
             editor.apply();
-            Toast.makeText(mContext,"You have fed your pet! Current feeding level: " + newFeedingScore +"/4",
+            Toast.makeText(mContext,"You have fed your pet! Current feeding level: " + newFeedingScore + "/4",
                     Toast.LENGTH_SHORT).show();
         }
 

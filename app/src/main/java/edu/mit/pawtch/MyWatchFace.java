@@ -21,6 +21,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -108,6 +110,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
          */
         boolean mLowBitAmbient;
 
+        private Bitmap mBackgroundBitmap;
+
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
@@ -122,9 +126,15 @@ public class MyWatchFace extends CanvasWatchFaceService {
             mYOffset = resources.getDimension(R.dimen.digital_y_offset);
 
             mBackgroundPaint = new Paint();
-            mBackgroundPaint.setColor(resources.getColor(R.color.background));
+            mBackgroundPaint.setColor(Color.BLACK);
+
+            final int backgroundResId = R.drawable.panda;
+
+            mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), backgroundResId);
 
             mTextPaint = new Paint();
+            mTextPaint = createTextPaint(Color.WHITE);
+            //mTextPaint = createTextPaint(resources.getColor(R.color.digital_text));
             mTextPaint = createTextPaint(resources.getColor(R.color.digital_text));
 
             mTime = new Time();
