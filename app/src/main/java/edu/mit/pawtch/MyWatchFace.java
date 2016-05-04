@@ -46,8 +46,11 @@ import java.util.concurrent.TimeUnit;
  * low-bit ambient mode, the text is drawn without anti-aliasing in ambient mode.
  */
 public class MyWatchFace extends CanvasWatchFaceService {
+
+    private Bitmap mBackgroundBitmap;
+
     private static final Typeface NORMAL_TYPEFACE =
-            Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
+            Typeface.create(Typeface.SANS_SERIF , Typeface.NORMAL);
 
     /**
      * Update rate in milliseconds for interactive mode. We update once a second since seconds are
