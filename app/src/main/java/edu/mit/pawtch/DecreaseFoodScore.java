@@ -22,12 +22,6 @@ public class DecreaseFoodScore extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         mContext = context;
         sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-       /* while(true){
-            try {
-                Thread.sleep(30000);
-            } catch (InterruptedException e) {
-                Log.e(TAG, "Coundn't sleep...");
-            }*/
         Log.e(TAG, "WE ARE ABOUT TO CHANGE THE FEEDING WOOOOOOO!");
         int feedingScore = sharedPref.getInt("feedingScore",0);
         long lastUpdate = sharedPref.getLong("lastFeedUpdate", System.currentTimeMillis());
@@ -49,8 +43,6 @@ public class DecreaseFoodScore extends BroadcastReceiver{
             editor.putLong("lastFeedUpdate", System.currentTimeMillis());
             editor.apply();
             Log.e(TAG, "NEW FEEDING SCORE: " + Integer.toString(newFeedingScore));
-
-            //}
         }
     }
 }

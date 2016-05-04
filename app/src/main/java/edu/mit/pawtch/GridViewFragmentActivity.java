@@ -91,9 +91,7 @@ public class GridViewFragmentActivity extends Activity {
         buildFitnessClient();
         mClient.connect();
 
-        // Set up Asyc Activity of Feeding going down
-        //DecreaseFoodScore decreaseFoodScore = new DecreaseFoodScore(this);
-        //decreaseFoodScore.execute();
+        // Set up alarm to decrease feeding
         AlarmManager alarmManger = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, DecreaseFoodScore.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
@@ -111,24 +109,6 @@ public class GridViewFragmentActivity extends Activity {
         newAdapter.notifyDataSetChanged();
         DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) findViewById(R.id.page_indicator);
         dotsPageIndicator.setPager(pager);
-
-
-
-//        View myView2 = findViewById(R.id.one_image_two_text);
-//        myView2.setOnTouchListener(new View.OnTouchListener() {
-//            public boolean onTouch(View v, MotionEvent event) {
-//                newAdapter.notifyDataSetChanged();
-//                return true;
-//            }
-//        });
-
-        // Setting up alarms
-        /*
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        int interval = 60000;
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(), interval, pendingIntent);*/
     }
 
     protected void onStart() {
@@ -143,9 +123,7 @@ public class GridViewFragmentActivity extends Activity {
     }
 
     private void buildFitnessClient() {
-        Log.e(TAG, "In buildFitnessClient");
         if (mClient == null) {
-            Log.e(TAG, "mClient is null");
             mClient = new GoogleApiClient.Builder(this)
                     .addApi(Wearable.API)
                     .addApi(Fitness.HISTORY_API)
@@ -210,8 +188,6 @@ public class GridViewFragmentActivity extends Activity {
             Calendar cal = Calendar.getInstance();
             Date now = new Date();
             cal.setTime(now);
-            Log.e("BRIA || ", "FITNESS ACTIVITY " + FitnessActivities.class.getFields().toString());
-
 
             long endTime = cal.getTimeInMillis();
             cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -228,7 +204,6 @@ public class GridViewFragmentActivity extends Activity {
 
             DailyTotalResult stepResult = pendingStepsResult.await(1, TimeUnit.MINUTES);
             int steps = 0;
-            Log.e(TAG, "STEP RESULT: " + stepResult.getStatus().isSuccess());
             if (stepResult.getStatus().isSuccess()) {
                 DataSet stepSet = stepResult.getTotal();
                 steps = stepSet.isEmpty() ? 0 : stepSet.getDataPoints().get(0).getValue(Field.FIELD_STEPS).asInt();
@@ -236,37 +211,8 @@ public class GridViewFragmentActivity extends Activity {
 
             numSteps = steps;
 
-            // Get the goal for steps
-            PendingResult<DailyTotalResult> pendingExerResult = Fitness.HistoryApi.readDailyTotal(
-                    mClient,
-                    DataType.TYPE_CALORIES_EXPENDED
-            );
-
-            DailyTotalResult exerResult = pendingExerResult.await(2, TimeUnit.MINUTES);
-            double minutesOfExer = 0;
-            Log.e(TAG, "EXERRESULT SUCCESSFUL? " + exerResult.getStatus().isSuccess());
-            if (exerResult.getStatus().isSuccess()) {
-                Log.e(TAG, "SUCCESSFUL MIN EXERCISE");
-                DataSet exerSet = exerResult.getTotal();
-                Log.e(TAG, "YOU ARE EXERCISING: " + exerSet.getDataPoints().get(0));
-                minutesOfExer = exerSet.isEmpty() ? 0 : exerSet.getDataPoints().get(0).getValue(Field.FIELD_MIN).asInt();
-            }
-
-            minExer = minutesOfExer;
-
-            DataReadRequest exerRequest = new DataReadRequest.Builder()
-                    .read(DataType.TYPE_CALORIES_EXPENDED)
-                    .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                    .build();
-
-            DataReadResult exerReadResult = Fitness.HistoryApi.readData(mClient, exerRequest).await(1, TimeUnit.MINUTES);
-            Log.e(TAG, "OTHER EXERRESULT: " + exerReadResult.getStatus().isSuccess());
             Log.e(TAG, "GOT RESULTS! :D");
-            //Log.e(TAG, "Start Time: " + startTime);
-            //Log.e(TAG, "End Time: " + endTime);
             Log.e(TAG, "Step Count: " + numSteps);
-            Log.e(TAG, "Activity Min: " + minExer);
-            //Log.e(TAG, "Aggregate Activity: " + aggregate_activity);
 
             return null;
         }
@@ -326,15 +272,12 @@ public class GridViewFragmentActivity extends Activity {
                 tv2.setText(" Stats");
                 setHappinessAndPicture(iv);
                 int newHappinessScore = sharedPref.getInt("happinessScore",0);
-                Log.e("BRIA: ", "STORED HAPPINESS || " + newHappinessScore);
                 tv.setText("Happiness:  " + Integer.toString(newHappinessScore) + "%");
                 iv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("BRIA: ", "REACHES THE UPDATE HEART");
                         setHappinessAndPicture(iv);
                         int newHappinessScore = sharedPref.getInt("happinessScore", 0);
-                        Log.e("BRIA: ", "STORED HAPPINESS || " + newHappinessScore);
                         tv.setText("Happiness:  " + Integer.toString(newHappinessScore) + "%");
                     }
                 });
@@ -359,16 +302,6 @@ public class GridViewFragmentActivity extends Activity {
                         tv2.setText((int) numSteps + "  ");
                     }
                 });
-            } else if (row == 1 && col == 3) {
-                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_two_text, viewGroup, false);
-                final TextView tv1 = (TextView) view.findViewById(R.id.pageTitle2);
-                final TextView tv2 = (TextView) view.findViewById(R.id.FitInfo);
-                final ImageView iv = (ImageView) view.findViewById(R.id.icon2);
-                final TextView tv3 = (TextView) view.findViewById(R.id.upperTitle2);
-                tv1.setText("Playing");
-                tv2.setText("10 min  ");
-                tv3.setText(" Stats"); 
-                iv.setImageResource(R.drawable.dumbbell);
             } else if (row == 1 && col == 2) {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.one_image_one_text, viewGroup, false);
                 final TextView tv = (TextView) view.findViewById(R.id.pageTitle1);
@@ -504,9 +437,6 @@ public class GridViewFragmentActivity extends Activity {
             editor.putInt("happinessScore", (int) happiness);
             editor.apply();
             editor.apply();
-            Log.e("BRIA", "HAPPINESS || " + happiness);
-            Log.e("BRIA", "HAPPINESS || " + (int) happiness);
-            Log.e("BRIA", "NEWLY SET HAPPINESS || " + sharedPref.getInt("happinessScore", 0));
             if (0.0 <= happiness  && happiness < 10.0) {
                 iv.setImageResource(R.drawable.heart0);
             } else if (10 <= happiness && happiness < 20.0) {
