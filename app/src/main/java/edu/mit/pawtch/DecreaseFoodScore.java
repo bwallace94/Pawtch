@@ -1,6 +1,8 @@
 package edu.mit.pawtch;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -9,42 +11,46 @@ import android.util.Log;
 /**
  * Created by Priscila Cortez on 5/4/2016.
  */
-public class DecreaseFoodScore extends AsyncTask{
+public class DecreaseFoodScore extends BroadcastReceiver{
 
     private SharedPreferences sharedPref;
-    final Context mContext;
+    Context mContext;
     String TAG = "PAWTCH";
-
-    public DecreaseFoodScore(final Context context){
-        this.mContext = context;
-        this.sharedPref = PreferenceManager.getDefaultSharedPreferences(this.mContext);
-    }
+    int INTERVAL = 10000;
 
     @Override
-    protected Object doInBackground(Object[] params) {
-        while(true){
+    public void onReceive(Context context, Intent intent) {
+        mContext = context;
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+       /* while(true){
             try {
-                Thread.sleep(10000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 Log.e(TAG, "Coundn't sleep...");
-            }
-            Log.e(TAG, "We are in background and sleeping!");
-            int feedingScore = sharedPref.getInt("feedingScore",0);
-            Long lastUpdate = sharedPref.getLong("lastFeedUpdate", System.currentTimeMillis());
-            Long currentTime = System.currentTimeMillis();
-            Long difference = currentTime - lastUpdate;
+            }*/
+        Log.e(TAG, "WE ARE ABOUT TO CHANGE THE FEEDING WOOOOOOO!");
+        int feedingScore = sharedPref.getInt("feedingScore",0);
+        long lastUpdate = sharedPref.getLong("lastFeedUpdate", System.currentTimeMillis());
+        long currentTime = System.currentTimeMillis();
+        long difference = currentTime - lastUpdate;
 
-            SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPref.edit();
 
-            if (difference >= 10000){
-                if (feedingScore > 0){
-                    Log.e(TAG,"FEEDING SCORE: " + feedingScore);
-                    editor.putInt("feedingScore", feedingScore - 1);
-                    editor.putLong("lastFeedUpdate", System.currentTimeMillis());
-                    editor.apply();
-                    Log.e(TAG, "NEW FEEDING SCORE: " + Integer.toString(feedingScore - 1));
-                }
+        if (difference >= INTERVAL && feedingScore > 0){
+            int changeInFeeding = (int) difference/INTERVAL;
+            int newFeedingScore = feedingScore - changeInFeeding;
+
+            if (newFeedingScore < 0){
+                newFeedingScore = 0;
             }
+
+            Log.e(TAG,"FEEDING SCORE: " + feedingScore);
+            editor.putInt("feedingScore", newFeedingScore);
+            editor.putLong("lastFeedUpdate", System.currentTimeMillis());
+            editor.apply();
+            Log.e(TAG, "NEW FEEDING SCORE: " + Integer.toString(newFeedingScore));
+
+            //}
         }
     }
 }

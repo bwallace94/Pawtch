@@ -67,6 +67,7 @@ import java.util.List;
 
 public class GridViewFragmentActivity extends Activity {
     public static final String TAG = "PAWTCH";
+    public int INTERVAL = 10000;
     private static final int REQUEST_OAUTH = 1;
     private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
 
@@ -91,8 +92,16 @@ public class GridViewFragmentActivity extends Activity {
         mClient.connect();
 
         // Set up Asyc Activity of Feeding going down
-        DecreaseFoodScore decreaseFoodScore = new DecreaseFoodScore(this);
-        decreaseFoodScore.execute();
+        //DecreaseFoodScore decreaseFoodScore = new DecreaseFoodScore(this);
+        //decreaseFoodScore.execute();
+        AlarmManager alarmManger = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, DecreaseFoodScore.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        int alarmType = AlarmManager.ELAPSED_REALTIME;
+        long triggerTime = INTERVAL;
+        long intervalTime = INTERVAL;
+        alarmManger.setInexactRepeating(alarmType,triggerTime,intervalTime,pendingIntent);
+
 
         final Resources res = getResources();
         final GridViewPager pager = (GridViewPager) findViewById(R.id.pager);
@@ -114,11 +123,12 @@ public class GridViewFragmentActivity extends Activity {
 //        });
 
         // Setting up alarms
+        /*
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
         AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         int interval = 60000;
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(), interval, pendingIntent);
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(), interval, pendingIntent);*/
     }
 
     protected void onStart() {
